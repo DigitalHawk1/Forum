@@ -1,0 +1,31 @@
+{
+  "name": "forum",
+  "version": "1.0.0",
+  "description": "",
+  "main": "back-end/server.js",
+  "dependencies": {
+    "@uirouter/angularjs": "^1.0.15",
+    "angular": "^1.6.9",
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "jsonwebtoken": "^8.2.0",
+    "jwt-simple": "^0.5.1",
+    "mongodb": "^3.0.3",
+    "mongoose": "^5.0.7",
+    "morgan": "^1.9.0",
+    "ngprogress": "^1.1.1",
+    "nodemon": "^1.17.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.1",
+    "restify": "^6.3.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon ./back-end/server.js"
+  },
+  "author": "Antanas Stanys",
+  "license": "ISC"
+}

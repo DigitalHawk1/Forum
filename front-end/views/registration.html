@@ -1,0 +1,60 @@
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" data-ui-sref="main">
+            <img src="./front-end/img/brand.png" alt="Brand logo">
+            <strong class="brand-text">Forumas</strong>
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" data-ui-sref="login">Prisijungti</a>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </nav>
+</header>
+
+<div class="container" style="max-width: 470px">
+    <form>
+        <div class="row">
+            <div class="col-6">
+                <label for="name">Vardas</label>
+                <input type="text" class="registration-form-input" id="name" name="name"
+                       required
+                       data-ng-model="user.name">
+            </div>
+            <div class="col-6">
+                <label for="last-name">Pavardė</label>
+                <input type="text" class="registration-form-input" id="last-name" name="lastName"
+                       required
+                       data-ng-model="user.lastName">
+            </div>
+            <div class="col-6">
+                <label for="username">Prisijungimo vardas</label>
+                <input type="text" class="registration-form-input" id="username" name="username"
+                       required
+                       data-ng-model="user.username">
+            </div>
+            <div class="col-6">
+                <label for="password">Slaptažodis</label>
+                <input type="password" class="registration-form-input" id="password" name="password"
+                       required
+                       data-ng-model="user.password">
+            </div>
+            <div class="col-6">
+                <label for="email">El. Paštas</label>
+                <input type="email" class="registration-form-input" id="email" name="email"
+                       required
+                       data-ng-model="user.email">
+            </div>
+            <div class="col-6">
+                <label for="phone">Telefono nr.</label>
+                <input type="number" class="registration-form-input" id="phone" value="86" name="phone"
+                       required
+                       data-ng-model="user.phone">
+            </div>
+            <button type="submit" class="btn btn-success" id="registration-btn" data-ng-click="signup()">Registruotis</button>
+        </div>
+    </form>
+</div>

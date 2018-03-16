@@ -1,0 +1,12 @@
+<div class="login-form-container">
+    <form action="">
+        <label for="Username">Prisijungimo vardas</label>
+        <input type="text" id="Username" data-ng-model="user.username">
+        <label for="Password">Slaptažodis</label>
+        <input type="password" id="Password" data-ng-model="user.password">
+    </form>
+    <br>
+    <a data-ui-sref="registration" id="registration-link">Registracija</a>
+    <br>
+    <button type="submit" class="btn btn-success" data-ng-click="login()">Prisijungti</button>
+</div>
