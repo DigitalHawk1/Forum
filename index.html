@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-ng-controller="progressBarCtrl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -17,9 +17,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
     <script src="//unpkg.com/@uirouter/angularjs/release/angular-ui-router.min.js"></script>
-    <script src="node_modules/@uirouter/angularjs/release/stateEvents.js"></script>
-    <script src="./front-end/js/app.module.js"></script>
-    <script src="./front-end/js/app.config.js"></script>
+    <script src="./node_modules/@uirouter/angularjs/release/stateEvents.js"></script>
+    <script src="./front-end/js/app/app.module.js"></script>
+    <script src="./front-end/js/app/app.config.js"></script>
 
     <base href="/">
 </head>
@@ -48,7 +48,7 @@
                 </a>
             </li>
             <li class="list-inline-item ">
-                <a href="https://github.com/DigitalHawk1/" class="social-list-link ">
+                <a href="https://github.com/DigitalHawk1/forum" class="social-list-link ">
                     <span class="fab-wrapper"><i class="fab fa-github-square"></i></span>
                 </a>
             </li>
@@ -60,10 +60,9 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script src="./node_modules/ngprogress/build/ngProgress.min.js"></script>
-<script src="./front-end/js/controllers/progressBarCtrl.js"></script>
-<script src="./front-end/js/services.js"></script>
-<script src="./front-end/js/constants.js"></script>
+<script src="./front-end/js/services/AuthService.js"></script>
+<script src="./front-end/js/services/CRUDService.js"></script>
+<script src="./front-end/js/app/app.constants.js"></script>
 <script src="./front-end/js/controllers/insideCtrl.js"></script>
 <script src="./front-end/js/controllers/loginCtrl.js"></script>
 <script src="./front-end/js/controllers/registrationCtrl.js"></script>

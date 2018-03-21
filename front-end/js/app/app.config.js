@@ -11,25 +11,25 @@
       $stateProvider
         .state('login', {
           url: '/',
-          templateUrl: 'front-end/views/login.html',
+          templateUrl: './front-end/views/login.html',
           controller: 'loginCtrl'
         })
 
         .state('registration', {
           url: '/registration',
-          templateUrl: 'front-end/views/registration.html',
+          templateUrl: './front-end/views/registration.html',
           controller: 'registrationCtrl'
         })
 
         .state('admin-main', {
           url: '/admin-main',
-          templateUrl: 'front-end/views/admin-main.html',
+          templateUrl: './front-end/views/admin-main.html',
           controller: 'insideCtrl'
         })
 
         .state('user-main', {
           url: '/user-main',
-          templateUrl: 'front-end/views/user-main.html',
+          templateUrl: './front-end/views/user-main.html',
           controller: 'insideCtrl'
         })
 

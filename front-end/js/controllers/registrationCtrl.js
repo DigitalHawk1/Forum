@@ -12,7 +12,6 @@
     $scope.signup = function () {
       AuthService.register($scope.user).then(function (msg) {
         $state.go('login')
-        alert(msg)
       }, function (errMsg) {
         alert(errMsg)
       })

@@ -9,6 +9,7 @@
   var passport = require('passport')
   var config = require('./config/database') // get db config file
   var User = require('./models/user') // get the mongoose model
+  var Thread = require('./models/thread')
   var port = 8888
   var jwt = require('jwt-simple')
   var cors = require('cors')
@@ -30,7 +31,7 @@
   // Use the passport package in our application
   app.use(passport.initialize())
 
-  // demo Route (GET http://localhost:8888)
+  // demo Route (GET http://localhost:port)
   app.get('/', cors(corsOptions), function (req, res) {
     res.send('Hello! The API is at http://localhost:' + port + '/api')
   })
@@ -39,7 +40,7 @@
   app.listen(port)
   console.log('There will be dragons: http://localhost:' + port)
 
-  // demo Route (GET http://localhost:8888)
+  // demo Route (GET http://localhost:port)
   // ...
 
   // connect to database
@@ -54,8 +55,9 @@
   apiRoutes.get('/', function (req, res) {
     return res.json({success: false, msg: 'Prisijungimo vardas arba el.paštas užimtas.'})
   })
+
   //
-  // // create a new user account (POST http://localhost:8888/api/signup)
+  // // create a new user account (POST http://localhost:port/api/signup)
   apiRoutes.post('/signup', cors(corsOptions), function (req, res) {
     if (!req.body.name || !req.body.lastName || !req.body.username ||
       !req.body.password || !req.body.email || !req.body.phone) {
@@ -83,7 +85,7 @@
   // connect the api routes under /api/
   app.use('/api', apiRoutes)
 
-  // route to authenticate a user (POST http://localhost:8888/api/authenticate)
+  // route to authenticate a user (POST http://localhost:port/api/authenticate)
   apiRoutes.post('/authenticate', cors(corsOptions), function (req, res) {
     User.findOne({
         username: req.body.username
@@ -114,7 +116,27 @@
       })
   })
 
-  // route to a restricted info (GET http://localhost:8888/api/memberinfo)
+  apiRoutes.post('/create-thread', cors(corsOptions), function (req, res) {
+    if (!req.body.name) {
+      res.json({success: false, msg: 'Tokia tema jau yra.'})
+      next();
+    } else {
+      var newThread = new Thread({
+        name: req.body.name
+      })
+    }
+
+    console.log(newThread);
+    newThread.save(function (err) {
+      if (err) {
+        console.log(err);
+        return res.json({success: false, msg: 'Tokia tema jau yra.'})
+      }
+      res.json({success: true, msg: 'Sėkmingai sukūrėte temą.'})
+    })
+  })
+
+  // route to a restricted info (GET http://localhost:port/api/memberinfo)
   apiRoutes.get('/memberinfo', cors(corsOptions), passport.authenticate('jwt', {session: false}), function (req, res) {
     var token = getToken(req.headers)
     if (token) {
@@ -140,6 +162,20 @@
     } else {
       return res.status(403).send({success: false, msg: 'No token provided.'})
     }
+  })
+
+  apiRoutes.get('/get-threads', cors(corsOptions), function (req, res) {
+    Thread.find({},
+      function (err, thread) {
+        if (err) {
+          throw err
+        } else {
+          res.json({
+            success: true,
+            name: thread.name
+          })
+        }
+      })
   })
 
   var getToken = function (headers) {

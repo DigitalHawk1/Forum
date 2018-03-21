@@ -2,19 +2,31 @@
   'use strict'
   forumApp = angular.module('forumApp')
 
-  forumApp.controller('insideCtrl', function ($scope, AuthService, API_ENDPOINT, $http, $state, AUTH_EVENTS) {
-    $scope.getInfo = function () {
-      $http.get(API_ENDPOINT.url + '/memberinfo').then(function (result) {
-        console.log(result.data)
+  forumApp.controller('insideCtrl', function ($scope, CRUDService, AuthService, API_ENDPOINT, $http, $state, AUTH_EVENTS) {
+    $scope.thread = {
+      name: ''
+    }
 
+    $scope.createNewThread = function () {
+      CRUDService.createThread($scope.thread).then(function (msg) {
+        alert(msg)
+        $state.go('login')
+      }, function (errMsg) {
+        alert(errMsg)
       })
     }
 
+    $scope.getInfo = function () {
+      $http.get(API_ENDPOINT.url + '/memberinfo').then(function (result) {
+        console.log(result.data)
+      })
+    }
 
     $scope.logout = function () {
       AuthService.logout()
       $state.go('login')
-  }
+    }
+
     $scope.$on(AUTH_EVENTS.notAuthenticated, function (event) {
       AuthService.logout()
       $state.go('login')

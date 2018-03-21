@@ -245,3 +245,8 @@ form {
 #phone {
     width: 204px;
 }
+
+textarea {
+    resize: none;
+}
+
