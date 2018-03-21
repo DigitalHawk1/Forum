@@ -19,14 +19,20 @@
       }
 
       var getThreads = function () {
-        $http.get(API_ENDPOINT.url + '/get-threads').then(function (result) {
-          console.log(result.data)
-          $scope.threads = result.data
+        return $q(function (resolve, reject) {
+          $http.get(API_ENDPOINT.url + '/get-threads').then(function (result) {
+            if (result.data.success) {
+              resolve(result.data)
+            } else {
+              reject(result.data.msg)
+            }
+          })
         })
       }
 
       return {
-        createThread: createThread
+        createThread: createThread,
+        getThreads: getThreads
       }
     })
 })()

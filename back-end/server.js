@@ -125,8 +125,6 @@
         name: req.body.name
       })
     }
-
-    console.log(newThread);
     newThread.save(function (err) {
       if (err) {
         console.log(err);
@@ -165,14 +163,18 @@
   })
 
   apiRoutes.get('/get-threads', cors(corsOptions), function (req, res) {
+    var threadsNames = []
     Thread.find({},
-      function (err, thread) {
+      function (err, threads) {
+      threads.forEach(function (thread) {
+        threadsNames.push(thread.name)
+      })
         if (err) {
           throw err
         } else {
           res.json({
             success: true,
-            name: thread.name
+            names: threadsNames
           })
         }
       })
