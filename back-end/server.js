@@ -116,24 +116,6 @@
       })
   })
 
-  apiRoutes.post('/create-thread', cors(corsOptions), function (req, res) {
-    if (!req.body.name) {
-      res.json({success: false, msg: 'Tokia tema jau yra.'})
-      next();
-    } else {
-      var newThread = new Thread({
-        name: req.body.name
-      })
-    }
-    newThread.save(function (err) {
-      if (err) {
-        console.log(err);
-        return res.json({success: false, msg: 'Tokia tema jau yra.'})
-      }
-      res.json({success: true, msg: 'Sėkmingai sukūrėte temą.'})
-    })
-  })
-
   // route to a restricted info (GET http://localhost:port/api/memberinfo)
   apiRoutes.get('/memberinfo', cors(corsOptions), passport.authenticate('jwt', {session: false}), function (req, res) {
     var token = getToken(req.headers)
@@ -162,23 +144,72 @@
     }
   })
 
+  apiRoutes.post('/create-thread', cors(corsOptions), function (req, res) {
+    if (!req.body.name) {
+      res.json({success: false, msg: 'Tokia tema jau yra.'})
+      next()
+    } else {
+      var newThread = new Thread({
+        name: req.body.name
+      })
+    }
+    newThread.save(function (err) {
+      if (err) {
+        console.log(err)
+        return res.json({success: false, msg: 'Tokia tema jau yra.'})
+      }
+      res.json({success: true, msg: 'Sėkmingai sukūrėte temą.'})
+    })
+  })
+
   apiRoutes.get('/get-threads', cors(corsOptions), function (req, res) {
-    var threadsNames = []
     Thread.find({},
       function (err, threads) {
-      threads.forEach(function (thread) {
-        threadsNames.push(thread.name)
-      })
         if (err) {
           throw err
         } else {
           res.json({
             success: true,
-            names: threadsNames
+            threads: threads,
           })
         }
       })
   })
+
+  apiRoutes.put('/edit-thread/:id', cors(corsOptions), function (req, res) {
+    Thread.findById(req.params.id, function (err, thread) {
+      if (err) throw err
+
+      thread.name = req.body.name
+
+      thread.save(function (err) {
+        if (err) throw err
+
+        res.json({
+          success: true,
+          msg: 'Tema redaguota'
+        })
+      })
+    })
+  })
+
+  // apiRoutes.post('/create-thread', cors(corsOptions), function (req, res) {
+  //   if (!req.body.name) {
+  //     res.json({success: false, msg: 'Tokia tema jau yra.'})
+  //     next();
+  //   } else {
+  //     var newThread = new Thread({
+  //       name: req.body.name
+  //     })
+  //   }
+  //   newThread.save(function (err) {
+  //     if (err) {
+  //       console.log(err);
+  //       return res.json({success: false, msg: 'Tokia tema jau yra.'})
+  //     }
+  //     res.json({success: true, msg: 'Sėkmingai sukūrėte temą.'})
+  //   })
+  // })
 
   var getToken = function (headers) {
     if (headers && headers.authorization) {

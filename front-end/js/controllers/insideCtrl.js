@@ -3,12 +3,17 @@
   forumApp = angular.module('forumApp')
 
   forumApp.controller('insideCtrl', function ($scope, CRUDService, AuthService, API_ENDPOINT, $http, $state, AUTH_EVENTS) {
-    $scope.thread = {
+    $scope.newThread = {
       name: ''
     }
 
+    $scope.editedThread = {
+      name: '',
+      id: ''
+    }
+
     $scope.createNewThread = function () {
-      CRUDService.createThread($scope.thread).then(function (msg) {
+      CRUDService.createThread($scope.newThread).then(function (msg) {
         alert(msg)
         $state.reload()
       }, function (errMsg) {
@@ -24,11 +29,26 @@
 
     function getAllThreads() {
       CRUDService.getThreads().then(function (threads) {
-        $scope.threadsNames = threads.names
+        $scope.threads = threads['threads']
       })
     }
 
     getAllThreads()
+
+    $scope.pushToEditedThread = function (name, id) {
+      $scope.editedThread = {
+        name: name,
+        id: id
+      }
+    }
+
+    $scope.editThread = function () {
+      CRUDService.editThread($scope.editedThread).then(function () {
+        $state.reload()
+      }, function (errMsg) {
+        alert(errMsg)
+      })
+    }
 
     $scope.logout = function () {
       AuthService.logout()

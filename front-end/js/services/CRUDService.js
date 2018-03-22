@@ -22,6 +22,7 @@
         return $q(function (resolve, reject) {
           $http.get(API_ENDPOINT.url + '/get-threads').then(function (result) {
             if (result.data.success) {
+              delete result.data.success
               resolve(result.data)
             } else {
               reject(result.data.msg)
@@ -30,9 +31,22 @@
         })
       }
 
+      var editThread = function (thread) {
+        return $q(function (resolve, reject) {
+          $http.put(API_ENDPOINT.url + '/edit-thread/' + thread.id, thread).then(function (result) {
+            if (result.data.success) {
+              resolve(result.data.msg)
+            } else {
+              reject (result.data.msg)
+            }
+          })
+        })
+      }
+
       return {
         createThread: createThread,
-        getThreads: getThreads
+        getThreads: getThreads,
+        editThread: editThread
       }
     })
 })()
