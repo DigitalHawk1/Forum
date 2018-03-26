@@ -48,6 +48,12 @@
                                     Redaguoti
                                 </button>
                             </td>
+                            <td>
+                                <button class="btn btn-danger" data-toggle="modal" data-target="#delete-thread"
+                                        data-ng-click="pushToThreadId(thread._id)">
+                                    Ištrinti
+                                </button>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -172,6 +178,26 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-success" data-ng-click="editThread()" data-dismiss="modal">Redaguoti temą</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Uždaryti</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="delete-thread" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ištrinti temą</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h2 class="font-weight-bold text-danger">Ar tikrai norite ištrinti temą?</h2>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" data-ng-click="deleteThread()" data-dismiss="modal">Ištrinti temą</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Uždaryti</button>
             </div>
         </div>

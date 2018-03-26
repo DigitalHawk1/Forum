@@ -193,23 +193,16 @@
     })
   })
 
-  // apiRoutes.post('/create-thread', cors(corsOptions), function (req, res) {
-  //   if (!req.body.name) {
-  //     res.json({success: false, msg: 'Tokia tema jau yra.'})
-  //     next();
-  //   } else {
-  //     var newThread = new Thread({
-  //       name: req.body.name
-  //     })
-  //   }
-  //   newThread.save(function (err) {
-  //     if (err) {
-  //       console.log(err);
-  //       return res.json({success: false, msg: 'Tokia tema jau yra.'})
-  //     }
-  //     res.json({success: true, msg: 'Sėkmingai sukūrėte temą.'})
-  //   })
-  // })
+  apiRoutes.delete('/delete-thread/:id', cors(corsOptions), function (req, res) {
+    Thread.findByIdAndRemove(req.params.id, function (err) {
+      if (err) throw err
+
+      res.json({
+        success: true,
+        msg: 'Tema ištrinta'
+      })
+    })
+  })
 
   var getToken = function (headers) {
     if (headers && headers.authorization) {

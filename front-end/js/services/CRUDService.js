@@ -24,8 +24,6 @@
             if (result.data.success) {
               delete result.data.success
               resolve(result.data)
-            } else {
-              reject(result.data.msg)
             }
           })
         })
@@ -36,8 +34,16 @@
           $http.put(API_ENDPOINT.url + '/edit-thread/' + thread.id, thread).then(function (result) {
             if (result.data.success) {
               resolve(result.data.msg)
-            } else {
-              reject (result.data.msg)
+            }
+          })
+        })
+      }
+      
+      var deleteThread = function (thread) {
+        return $q(function (resolve, reject) {
+          $http.delete(API_ENDPOINT.url + '/delete-thread/' + thread.id).then(function (result) {
+            if (result.data.success) {
+              resolve(result.data.msg)
             }
           })
         })
@@ -46,7 +52,8 @@
       return {
         createThread: createThread,
         getThreads: getThreads,
-        editThread: editThread
+        editThread: editThread,
+        deleteThread: deleteThread
       }
     })
 })()
