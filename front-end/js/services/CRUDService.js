@@ -49,11 +49,24 @@
         })
       }
 
+      var getNewestMessage = function (name) {
+        return $q(function (resolve, reject) {
+          $http.get(API_ENDPOINT.url + '/get-message/' + name).then(function (result) {
+            if (result.data.success) {
+              delete result.data.success
+              resolve(result.data)
+            }
+          })
+        })
+      }
+
+
       return {
         createThread: createThread,
         getThreads: getThreads,
         editThread: editThread,
-        deleteThread: deleteThread
+        deleteThread: deleteThread,
+        getNewestMessage: getNewestMessage
       }
     })
 })()

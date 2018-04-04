@@ -7,11 +7,6 @@
       name: ''
     }
 
-    $scope.editedThread = {
-      name: '',
-      id: ''
-    }
-
     $scope.pushToEditedThread = function (name, id) {
       $scope.editedThread = {
         name: name,

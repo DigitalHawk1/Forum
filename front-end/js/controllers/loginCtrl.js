@@ -5,8 +5,8 @@
 
   forumApp.controller('loginCtrl', function ($scope, AuthService, $http, $state, $rootScope) {
     $scope.user = {
-      username: 'testas',
-      password: 'testas'
+      username: '',
+      password: ''
     }
 
     $scope.login = function () {

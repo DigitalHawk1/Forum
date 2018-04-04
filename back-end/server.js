@@ -10,6 +10,7 @@
   var config = require('./config/database') // get db config file
   var User = require('./models/user') // get the mongoose model
   var Thread = require('./models/thread')
+  var Messages = require('./models/threadsMessages')
   var port = 8888
   var jwt = require('jwt-simple')
   var cors = require('cors')
@@ -170,10 +171,30 @@
         } else {
           res.json({
             success: true,
-            threads: threads,
+            threads: threads
           })
         }
       })
+  })
+
+  apiRoutes.get('/get-message/:name', cors(corsOptions), function (req, res) {
+    Messages.findOne({
+      threadName: req.params.name
+    },
+      ['lastModified', 'messageAuthor', 'threadName'],
+      {sort: {lastModified: -1}},
+      function (err, message) {
+        if (err) {
+          throw err
+        } else {
+          res.json({
+            success: true,
+            author: message.messageAuthor,
+            lastModified: message.lastModified,
+          })
+        }
+      })
+
   })
 
   apiRoutes.put('/edit-thread/:id', cors(corsOptions), function (req, res) {
