@@ -20,12 +20,6 @@
       }
     }
 
-    $scope.getInfo = function () {
-      $http.get(API_ENDPOINT.url + '/memberinfo').then(function (result) {
-        console.log(result.data)
-      })
-    };
-
     $scope.logout = function () {
       AuthService.logout()
       $state.go('login')

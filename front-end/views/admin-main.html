@@ -38,7 +38,11 @@
                     </thead>
                     <tbody>
                     <tr data-ng-repeat="thread in threads">
-                        <td class="text-truncate"><a href="">{{thread.name}}</a></td>
+                        <td class="text-truncate">
+                            <a data-ui-sref="admin-main-thread({threadName: thread.name})">
+                                {{thread.name}}
+                            </a>
+                        </td>
                         <td class="text-truncate">ddddddddddddddddddddddddd</td>
                         <td class="text-truncate">dsfsdddddddddddddddddddddddddasdasds</td>
                         <td>

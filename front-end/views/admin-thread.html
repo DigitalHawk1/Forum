@@ -1,0 +1,38 @@
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" data-ui-sref="/user-main">
+            <img src="./front-end/img/brand.png" alt="Brand logo">
+            <strong class="brand-text">Forumas</strong>
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <form action="#">
+                        <input type="text" name="search" class="search">
+                    </form>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-ng-click="logout()">Atsijungti</a>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </nav>
+</header>
+<div class="container">
+
+
+    <article data-ng-repeat="message in messages" class="card m-3">
+        <div class="card-header">
+            <h2 class="card-title">{{message.messageAuthor}}</h2>
+            <p class="float-right">{{message.lastModified}}</p>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-body">
+            <p class="card-text">{{message.message}}</p>
+
+        </div>
+
+    </article>
+
+</div>

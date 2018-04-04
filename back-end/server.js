@@ -117,34 +117,6 @@
       })
   })
 
-  // route to a restricted info (GET http://localhost:port/api/memberinfo)
-  apiRoutes.get('/memberinfo', cors(corsOptions), passport.authenticate('jwt', {session: false}), function (req, res) {
-    var token = getToken(req.headers)
-    if (token) {
-      var decoded = jwt.decode(token, config.secret)
-      User.findOne({
-        username: decoded.username
-      }, function (err, user) {
-        if (err) throw err
-
-        if (!user) {
-          return res.status(403).send({success: false, msg: 'Vartotojas nerastas.'})
-        } else {
-          res.json({
-            success: true,
-            name: user.name,
-            lastName: user.lastName,
-            username: user.username,
-            email: user.email,
-            phone: user.phone
-          })
-        }
-      })
-    } else {
-      return res.status(403).send({success: false, msg: 'No token provided.'})
-    }
-  })
-
   apiRoutes.post('/create-thread', cors(corsOptions), function (req, res) {
     if (!req.body.name) {
       res.json({success: false, msg: 'Tokia tema jau yra.'})
@@ -172,6 +144,22 @@
           res.json({
             success: true,
             threads: threads
+          })
+        }
+      })
+  })
+
+  apiRoutes.get('/get-messages/:threadName', cors(corsOptions), function (req, res) {
+    Messages.find({
+        threadName: req.params.threadName
+      },
+      function (err, messages) {
+        if (err) {
+          throw err
+        } else {
+          res.json({
+            success: true,
+            messages: messages
           })
         }
       })

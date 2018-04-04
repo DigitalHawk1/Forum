@@ -33,14 +33,25 @@
           controller: 'insideCtrl'
         })
 
+        .state('user-main-thread', {
+          url: '/user-main/:threadName',
+          templateUrl: './front-end/views/user-thread.html',
+          controller: 'threadCtrl'
+        })
+
+        .state('admin-main-thread', {
+          url: '/admin-main/:threadName',
+          templateUrl: './front-end/views/admin-thread.html',
+          controller: 'threadCtrl'
+        })
+
       $urlRouterProvider.otherwise('/')
     }])
   forumApp.run(['$rootScope', '$state', 'AuthService', 'AUTH_EVENTS', function ($rootScope, $state, AuthService, AUTH_EVENTS) {
     $rootScope.$on('$stateChangeStart', function (event, next, nextParams, fromState) {
       if (!AuthService.isAuthenticated()) {
-        if (next.name !== 'registration' && next.name !== 'home' && next.name !== 'login') {
+        if (next.name !== 'registration' && next.name !== 'login') {
           event.preventDefault()
-          alert('Prašome prisijungti!')
           $state.go('login')
         }
       }

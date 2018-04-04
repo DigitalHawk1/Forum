@@ -60,13 +60,25 @@
         })
       }
 
+      var getMessages = function (threadName) {
+        return $q(function (resolve, reject) {
+          $http.get(API_ENDPOINT.url + '/get-messages/' + threadName).then(function (result) {
+            if (result.data.success) {
+              delete result.data.success
+              resolve(result.data.messages)
+            }
+          })
+        })
+      }
+
 
       return {
         createThread: createThread,
         getThreads: getThreads,
         editThread: editThread,
         deleteThread: deleteThread,
-        getNewestMessage: getNewestMessage
+        getNewestMessage: getNewestMessage,
+        getMessages: getMessages
       }
     })
 })()
