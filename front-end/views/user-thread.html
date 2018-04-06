@@ -25,14 +25,51 @@
     <article data-ng-repeat="message in messages" class="card m-3">
         <div class="card-header">
             <h2 class="card-title">{{message.messageAuthor}}</h2>
-            <p class="float-right">{{message.lastModified}}</p>
-            <div class="clearfix"></div>
+            <p>{{message.lastModified | date : fullDate}}</p>
         </div>
         <div class="card-body">
             <p class="card-text">{{message.message}}</p>
 
         </div>
+        <div class="card-footer bg-transparent border-success">
+            <button class="btn btn-warning float-right" data-toggle="modal" data-target="#edit-message"
+                    data-ng-click="pushToEditedMessage(message.message, message._id)">
+                Redaguoti
+            </button>
+        </div>
 
     </article>
 
+
+    <form class="thread-form">
+        <textarea class="form-control col-sm-4" type="text" placeholder="Pranešimas" required></textarea>
+        <br>
+        <button class="btn btn-success">Kurti naują pranešimą</button>
+    </form>
+
+</div>
+
+<div class="modal" id="edit-message" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Redaguoti pranešimą</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <textarea class="form-control col-sm-6" type="text" placeholder="Pranešimas"
+                              required
+                              data-ng-model="editedMessage.message"></textarea>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" data-ng-click="editMessage()" data-dismiss="modal">Redaguoti pranešimą
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Uždaryti</button>
+            </div>
+        </div>
+    </div>
 </div>

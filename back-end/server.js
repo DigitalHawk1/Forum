@@ -178,11 +178,28 @@
           res.json({
             success: true,
             author: message.messageAuthor,
-            lastModified: message.lastModified,
+            lastModified: message.lastModified
           })
         }
       })
+  })
 
+  apiRoutes.put('/edit-message/:id', cors(corsOptions), function (req, res) {
+    Messages.findById(req.params.id, function (err, message) {
+      if (err) throw err
+
+      message.message = req.body.message
+      message.lastModified = new Date()
+
+      message.save(function (err) {
+        if (err) throw err
+
+        res.json({
+          success: true,
+          msg: 'Pranešimas redaguotas'
+        })
+      })
+    })
   })
 
   apiRoutes.put('/edit-thread/:id', cors(corsOptions), function (req, res) {

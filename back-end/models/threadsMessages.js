@@ -13,7 +13,8 @@
     },
     lastModified: {
       type: Date,
-      required: true
+      required: true,
+      default: new Date()
     },
     message: {
       type: String,

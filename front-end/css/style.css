@@ -220,6 +220,7 @@ h3 {
 .btn {
     color: white;
     transition: all .3s;
+    margin: 10px;
 }
 
 .btn:hover {
@@ -250,3 +251,6 @@ textarea {
     resize: none;
 }
 
+.thread-form {
+    margin: 20px;
+}
