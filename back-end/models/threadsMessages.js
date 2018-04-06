@@ -19,6 +19,10 @@
     message: {
       type: String,
       required: true
+    },
+    threadName: {
+      type: String,
+      required: true
     }
   })
 

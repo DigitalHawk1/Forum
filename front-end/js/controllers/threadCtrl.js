@@ -4,17 +4,35 @@
 
   forumApp = angular.module('forumApp')
 
-  forumApp.controller('threadCtrl', function ($scope, CRUDService, $stateParams, AuthService, $state) {
+  forumApp.controller('threadCtrl', function ($scope, $rootScope, CRUDService, $stateParams, AuthService, $state, $http, API_ENDPOINT) {
 
     $scope.pushToEditedMessage = function (message, id) {
-      console.log(message, id)
       $scope.editedMessage = {
         message: message,
         id: id
       }
     }
 
-    function getMessages() {
+    function getInfo () {
+      $http.get(API_ENDPOINT.url + '/memberinfo').then(function (result) {
+        $scope.newMessage = {
+          message: '',
+          messageAuthor: result.data.username,
+          threadName: $stateParams.threadName
+        }
+      })
+    }
+
+    getInfo()
+
+    $scope.createNewMessage = function () {
+      CRUDService.createMessage($scope.newMessage).then(function (msg) {
+        alert(msg)
+        $state.reload()
+      })
+    }
+
+    function getMessages () {
       CRUDService.getMessages($stateParams.threadName).then(function (messages) {
         $scope.messages = messages
       })

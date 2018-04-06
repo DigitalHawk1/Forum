@@ -60,6 +60,16 @@
         })
       }
 
+      var createMessage = function (message) {
+        return $q(function (resolve, reject) {
+          $http.post(API_ENDPOINT.url + '/create-message', message).then(function (result) {
+            if (result.data.success) {
+              resolve(result.data.msg)
+            }
+          })
+        })
+      }
+
       var getMessages = function (threadName) {
         return $q(function (resolve, reject) {
           $http.get(API_ENDPOINT.url + '/get-messages/' + threadName).then(function (result) {
@@ -88,6 +98,7 @@
         editThread: editThread,
         deleteThread: deleteThread,
         getNewestMessage: getNewestMessage,
+        createMessage: createMessage,
         getMessages: getMessages,
         editMessage: editMessage
       }

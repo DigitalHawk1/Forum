@@ -149,6 +149,21 @@
       })
   })
 
+  apiRoutes.post('/create-message', cors(corsOptions), function (req, res) {
+    var newMessage = new Messages({
+      threadName: req.body.threadName,
+      message: req.body.message,
+      messageAuthor: req.body.messageAuthor,
+      lastModified: new Date()
+    })
+    newMessage.save(function (err) {
+      if (err) {
+        console.log(err)
+      }
+      res.json({success: true, msg: 'Sėkmingai sukūrėte pranešimą.'})
+    })
+  })
+
   apiRoutes.get('/get-messages/:threadName', cors(corsOptions), function (req, res) {
     Messages.find({
         threadName: req.params.threadName
@@ -167,8 +182,8 @@
 
   apiRoutes.get('/get-message/:name', cors(corsOptions), function (req, res) {
     Messages.findOne({
-      threadName: req.params.name
-    },
+        threadName: req.params.name
+      },
       ['lastModified', 'messageAuthor', 'threadName'],
       {sort: {lastModified: -1}},
       function (err, message) {
@@ -228,6 +243,34 @@
         msg: 'Tema ištrinta'
       })
     })
+  })
+
+  // route to a restricted info (GET http://localhost:port/api/memberinfo)
+  apiRoutes.get('/memberinfo', cors(corsOptions), passport.authenticate('jwt', {session: false}), function (req, res) {
+    var token = getToken(req.headers)
+    if (token) {
+      var decoded = jwt.decode(token, config.secret)
+      User.findOne({
+        username: decoded.username
+      }, function (err, user) {
+        if (err) throw err
+
+        if (!user) {
+          return res.status(403).send({success: false, msg: 'Vartotojas nerastas.'})
+        } else {
+          res.json({
+            success: true,
+            name: user.name,
+            lastName: user.lastName,
+            username: user.username,
+            email: user.email,
+            phone: user.phone
+          })
+        }
+      })
+    } else {
+      return res.status(403).send({success: false, msg: 'No token provided.'})
+    }
   })
 
   var getToken = function (headers) {

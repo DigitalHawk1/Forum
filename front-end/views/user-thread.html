@@ -42,9 +42,11 @@
 
 
     <form class="thread-form">
-        <textarea class="form-control col-sm-4" type="text" placeholder="Pranešimas" required></textarea>
+        <textarea class="form-control col-sm-3" type="text" placeholder="Pranešimas"
+                  required
+                  data-ng-model="newMessage.message"></textarea>
         <br>
-        <button class="btn btn-success">Kurti naują pranešimą</button>
+        <button class="btn btn-dark" data-ng-click="createNewMessage()">Kurti naują pranešimą</button>
     </form>
 
 </div>
