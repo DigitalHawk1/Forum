@@ -1,12 +1,12 @@
-(function () {
+{
   'use strict'
 
-  var mongoose = require('mongoose')
-  var Schema = mongoose.Schema
-  var bcrypt = require('bcrypt')
+  let mongoose = require('mongoose')
+  let Schema = mongoose.Schema
+  let bcrypt = require('bcrypt')
 
   // set up a mongoose model
-  var UserSchema = new Schema({
+  let UserSchema = new Schema({
     name: {
       type: String,
       required: true
@@ -40,13 +40,13 @@
   })
 
   UserSchema.pre('save', function (next) {
-    var user = this
+    let user = this
     if (this.isModified('password') || this.isNew) {
-      bcrypt.genSalt(10, function (err, salt) {
+      bcrypt.genSalt(10, (err, salt) => {
         if (err) {
           return next(err)
         }
-        bcrypt.hash(user.passwordHash, salt, function (err, hash) {
+        bcrypt.hash(user.passwordHash, salt, (err, hash) => {
           if (err) {
             return next(err)
           }
@@ -59,8 +59,8 @@
     }
   })
 
-  UserSchema.methods.comparePassword = function (passw, cb) {
-    bcrypt.compare(passw, this.passwordHash, function (err, isMatch) {
+  UserSchema.methods.comparePassword = (passw, cb) => {
+    bcrypt.compare(passw, this.passwordHash, (err, isMatch) => {
       if (err) {
         return cb(err)
       }
@@ -69,4 +69,4 @@
   }
 
   module.exports = mongoose.model('User', UserSchema)
-})()
+}

@@ -1,15 +1,15 @@
-(function () {
+{
   'use strict'
 
   angular.module('forumApp')
 
-    .service('AuthService', function ($q, $http, API_ENDPOINT, $rootScope) {
-      var LOCAL_TOKEN_KEY = 'yourTokenKey'
-      var isAuthenticated = false
-      var authToken
+    .service('AuthService', ($q, $http, API_ENDPOINT, $rootScope) => {
+      let LOCAL_TOKEN_KEY = 'yourTokenKey'
+      let isAuthenticated = false
+      let authToken
 
       function loadUserCredentials () {
-        var token = window.localStorage.getItem(LOCAL_TOKEN_KEY)
+        let token = window.localStorage.getItem(LOCAL_TOKEN_KEY)
         if (token) {
           useCredentials(token)
         }
@@ -35,9 +35,9 @@
         window.localStorage.removeItem(LOCAL_TOKEN_KEY)
       }
 
-      var register = function (user) {
-        return $q(function (resolve, reject) {
-          $http.post(API_ENDPOINT.url + '/signup', user).then(function (result) {
+      let register = user => {
+        return $q((resolve, reject) => {
+          $http.post(API_ENDPOINT.url + '/signup', user).then(result => {
             if (result.data.success) {
               resolve(result.data.msg)
             } else {
@@ -47,9 +47,9 @@
         })
       }
 
-      var login = function (user) {
-        return $q(function (resolve, reject) {
-          $http.post(API_ENDPOINT.url + '/authenticate', user).then(function (result) {
+      let login = user => {
+        return $q((resolve, reject) => {
+          $http.post(API_ENDPOINT.url + '/authenticate', user).then(result => {
             if (result.data.success) {
               storeUserCredentials(result.data.token)
               $rootScope.userRole = result.data.userStatus
@@ -61,7 +61,7 @@
         })
       }
 
-      var logout = function () {
+      let logout = () => {
         destroyUserCredentials()
       }
 
@@ -71,13 +71,13 @@
         login: login,
         register: register,
         logout: logout,
-        isAuthenticated: function () { return isAuthenticated }
+        isAuthenticated: () => isAuthenticated
       }
     })
 
-    .factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
+    .factory('AuthInterceptor', ($rootScope, $q, AUTH_EVENTS) => {
       return {
-        responseError: function (response) {
+        responseError: response => {
           $rootScope.$broadcast({
             401: AUTH_EVENTS.notAuthenticated
           }[response.status], response)
@@ -86,7 +86,7 @@
       }
     })
 
-    .config(function ($httpProvider) {
+    .config($httpProvider => {
       $httpProvider.interceptors.push('AuthInterceptor')
     })
-})()
+}

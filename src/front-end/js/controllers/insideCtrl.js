@@ -1,24 +1,24 @@
-(function () {
+{
   'use strict'
   forumApp = angular.module('forumApp')
 
-  forumApp.controller('insideCtrl', function ($scope, CRUDService, AuthService, API_ENDPOINT, $http, $state, AUTH_EVENTS) {
+  forumApp.controller('insideCtrl', ($scope, CRUDService, AuthService, API_ENDPOINT, $http, $state, AUTH_EVENTS) => {
 
-    $scope.pushToEditedThread = function (name, id) {
+    $scope.pushToEditedThread = (name, id) => {
       $scope.editedThread = {
         name: name,
         id: id
       }
     }
 
-    $scope.pushToThreadId = function (id) {
+    $scope.pushToThreadId = id => {
       $scope.threadId = {
         id: id
       }
     }
 
     function getInfo () {
-      $http.get(API_ENDPOINT.url + '/memberinfo').then(function (result) {
+      $http.get(API_ENDPOINT.url + '/memberinfo').then(result => {
         $scope.newThread = {
           name: '',
           threadAuthor: result.data.username
@@ -29,52 +29,52 @@
 
     getInfo()
 
-    $scope.logout = function () {
+    $scope.logout = () => {
       AuthService.logout()
       $state.go('login')
     }
 
-    $scope.$on(AUTH_EVENTS.notAuthenticated, function () {
+    $scope.$on(AUTH_EVENTS.notAuthenticated, () => {
       AuthService.logout()
       $state.go('login')
       alert('Jūsų naršymo sesija prarasta, prašome prisijungti iš naujo')
     })
 
-    $scope.createNewThread = function () {
-      CRUDService.createThread($scope.newThread).then(function (msg) {
+    $scope.createNewThread = () => {
+      CRUDService.createThread($scope.newThread).then(msg => {
         alert(msg)
         $state.reload()
-      }, function (errMsg) {
+      }, errMsg => {
         alert(errMsg)
       })
     }
 
     function getAllThreads() {
-      CRUDService.getThreads().then(function (threads) {
+      CRUDService.getThreads().then(threads => {
         $scope.threads = threads['threads']
       })
     }
 
     getAllThreads()
 
-    $scope.editThread = function () {
-      CRUDService.editThread($scope.editedThread).then(function () {
+    $scope.editThread = () => {
+      CRUDService.editThread($scope.editedThread).then(() => {
         $state.reload()
       })
     }
 
-    $scope.deleteThread = function () {
-      CRUDService.deleteThread($scope.threadId).then(function () {
+    $scope.deleteThread = () => {
+      CRUDService.deleteThread($scope.threadId).then(() => {
         alert('Tema ištrinta')
         $state.reload()
       })
     }
 
-    $scope.ifAuthor = function (author) {
+    $scope.ifAuthor = author => {
       if (author === $scope.threadAuthor) {
         return true
       }
     }
 
   })
-})()
+}
