@@ -123,7 +123,8 @@
       next()
     } else {
       var newThread = new Thread({
-        name: req.body.name
+        name: req.body.name,
+        threadAuthor: req.body.threadAuthor
       })
     }
     newThread.save(function (err) {
@@ -213,6 +214,17 @@
           success: true,
           msg: 'Pranešimas redaguotas'
         })
+      })
+    })
+  })
+
+  apiRoutes.delete('/delete-message/:id', cors(corsOptions), function (req, res) {
+    Messages.findByIdAndRemove(req.params.id, function (err) {
+      if (err) throw err
+
+      res.json({
+        success: true,
+        msg: 'Pranešimas ištrintas'
       })
     })
   })

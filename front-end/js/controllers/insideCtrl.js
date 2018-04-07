@@ -3,9 +3,6 @@
   forumApp = angular.module('forumApp')
 
   forumApp.controller('insideCtrl', function ($scope, CRUDService, AuthService, API_ENDPOINT, $http, $state, AUTH_EVENTS) {
-    $scope.newThread = {
-      name: ''
-    }
 
     $scope.pushToEditedThread = function (name, id) {
       $scope.editedThread = {
@@ -19,6 +16,18 @@
         id: id
       }
     }
+
+    function getInfo () {
+      $http.get(API_ENDPOINT.url + '/memberinfo').then(function (result) {
+        $scope.newThread = {
+          name: '',
+          threadAuthor: result.data.username
+        }
+        $scope.threadAuthor = result.data.username
+      })
+    }
+
+    getInfo()
 
     $scope.logout = function () {
       AuthService.logout()
@@ -59,6 +68,12 @@
         alert('Tema ištrinta')
         $state.reload()
       })
+    }
+
+    $scope.ifAuthor = function (author) {
+      if (author === $scope.threadAuthor) {
+        return true
+      }
     }
 
   })

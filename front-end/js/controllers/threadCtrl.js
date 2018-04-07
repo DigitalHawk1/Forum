@@ -20,10 +20,17 @@
           messageAuthor: result.data.username,
           threadName: $stateParams.threadName
         }
+        $scope.messageAuthor = result.data.username
       })
     }
 
     getInfo()
+
+    $scope.pushToMessageId = function (id) {
+      $scope.messageId = {
+        id: id
+      }
+    }
 
     $scope.createNewMessage = function () {
       CRUDService.createMessage($scope.newMessage).then(function (msg) {
@@ -49,6 +56,19 @@
       CRUDService.editMessage($scope.editedMessage).then(function () {
         $state.reload()
       })
+    }
+
+    $scope.deleteMessage = function () {
+      CRUDService.deleteMessage($scope.messageId).then(function () {
+        alert('Žinutė ištrinta')
+        $state.reload()
+      })
+    }
+
+    $scope.ifAuthor = function (author) {
+      if (author === $scope.messageAuthor) {
+        return true
+      }
     }
 
   })

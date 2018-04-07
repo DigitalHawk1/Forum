@@ -91,6 +91,16 @@
         })
       }
 
+      var deleteMessage = function (message) {
+        return $q(function (resolve, reject) {
+          $http.delete(API_ENDPOINT.url + '/delete-message/' + message.id).then(function (result) {
+            if (result.data.success) {
+              resolve(result.data.msg)
+            }
+          })
+        })
+      }
+
 
       return {
         createThread: createThread,
@@ -100,7 +110,8 @@
         getNewestMessage: getNewestMessage,
         createMessage: createMessage,
         getMessages: getMessages,
-        editMessage: editMessage
+        editMessage: editMessage,
+        deleteMessage: deleteMessage
       }
     })
 })()

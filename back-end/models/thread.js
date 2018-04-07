@@ -11,6 +11,10 @@
       type: String,
       unique: true,
       required: true
+    },
+    threadAuthor: {
+      type: String,
+      required: true
     }
   })
 
