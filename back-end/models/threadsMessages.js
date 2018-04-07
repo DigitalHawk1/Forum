@@ -1,11 +1,12 @@
-{
+(function () {
 
   'use strict'
 
-  let mongoose = require('mongoose')
-  let Schema = mongoose.Schema
+  var mongoose = require('mongoose')
+  var Schema = mongoose.Schema
 
-  let messageSchema = new Schema({
+
+  var messageSchema = new Schema({
     messageAuthor: {
       type: String,
       required: true
@@ -26,4 +27,4 @@
   })
 
   module.exports = mongoose.model('Messages', messageSchema)
-}
+})()

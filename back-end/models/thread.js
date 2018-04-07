@@ -1,12 +1,12 @@
-{
+(function () {
 
   'use strict'
 
-  let mongoose = require('mongoose')
-  let Schema = mongoose.Schema
+  var mongoose = require('mongoose')
+  var Schema = mongoose.Schema
 
 
-  let ThreadSchema = new Schema({
+  var ThreadSchema = new Schema({
     name: {
       type: String,
       unique: true,
@@ -19,4 +19,4 @@
   })
 
   module.exports = mongoose.model('Threads', ThreadSchema)
-}
+})()

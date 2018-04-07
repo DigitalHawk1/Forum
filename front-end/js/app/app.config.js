@@ -1,10 +1,10 @@
-{
+(function () {
   'use strict'
 
   forumApp = angular.module('forumApp')
 
   forumApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
-    ($stateProvider, $urlRouterProvider, $locationProvider) => {
+    function ($stateProvider, $urlRouterProvider, $locationProvider) {
       $locationProvider.hashPrefix('')
       $locationProvider.html5Mode(true)
 
@@ -47,8 +47,8 @@
 
       $urlRouterProvider.otherwise('/')
     }])
-  forumApp.run(['$rootScope', '$state', 'AuthService', 'AUTH_EVENTS', ($rootScope, $state, AuthService) => {
-    $rootScope.$on('$stateChangeStart', (event, next) => {
+  forumApp.run(['$rootScope', '$state', 'AuthService', 'AUTH_EVENTS', function ($rootScope, $state, AuthService) {
+    $rootScope.$on('$stateChangeStart', function (event, next) {
       if (!AuthService.isAuthenticated()) {
         if (next.name !== 'registration' && next.name !== 'login') {
           event.preventDefault()
@@ -57,4 +57,4 @@
       }
     })
   }])
-}
+})()

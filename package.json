@@ -21,21 +21,11 @@
     "passport-jwt": "^3.0.1",
     "restify": "^6.3.4"
   },
-  "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
-    "gulp": "^3.9.1",
-    "gulp-babel": "^7.0.1"
-  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "nodemon ./back-end/server.js",
     "setup-env": "node setup.js"
-  },
-  "babel": {
-    "presets": [
-      "es2015"
-    ]
   },
   "author": "Antanas Stanys",
   "license": "ISC"

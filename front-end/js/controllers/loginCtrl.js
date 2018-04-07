@@ -1,16 +1,16 @@
-{
+(function () {
   'use strict'
 
   forumApp = angular.module('forumApp')
 
-  forumApp.controller('loginCtrl', ($scope, AuthService, $http, $state, $rootScope) => {
+  forumApp.controller('loginCtrl', function ($scope, AuthService, $http, $state, $rootScope) {
     $scope.user = {
       username: '',
       password: ''
     }
 
-    $scope.login = () => {
-      AuthService.login($scope.user).then(() => {
+    $scope.login = function () {
+      AuthService.login($scope.user).then(function () {
 
         if ($rootScope.userRole === 'admin') {
           $state.go('admin-main')
@@ -18,10 +18,10 @@
           $state.go('user-main')
         }
       })
-        .catch(err => {
+        .catch(function (err) {
           alert('Nepavyko prisijungti')
           console.log(err)
         })
     }
   })
-}
+})()
