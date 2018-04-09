@@ -23,10 +23,9 @@
   app.use(cors())
 
   var corsOptions = {
-    origin: 'http://forumas.lt',
+    origin: process.env.DOMEN_NAME,
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   }
-
   // log to console
   app.use(morgan('dev'))
 

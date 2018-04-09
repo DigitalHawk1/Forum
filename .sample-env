@@ -1,3 +1,4 @@
 DB_NAME=forumas
 SECRET=secret
 BACK_END_SERVER_PORT=8888
+DOMEN_NAME=http://forumas.lt
