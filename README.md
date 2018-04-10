@@ -1,4 +1,4 @@
-#Forum
+# Forum
 
 Advanced JavaScript course final work
 
@@ -8,7 +8,7 @@ Advanced JavaScript course final work
 * Website's administrator can create, delete and edit threads and messages.
 
 
-##Used technologies
+## Used technologies
 
 * [HTML5](https://en.wikipedia.org/wiki/HTML5)
 * [CSS3](https://en.wikipedia.org/wiki/Cascading_Style_Sheets#CSS_3)
