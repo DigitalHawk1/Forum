@@ -1,5 +1,7 @@
 # Forum
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/FreeDevStan/Forum.svg)](https://greenkeeper.io/)
+
 Advanced JavaScript course final work
 
 
